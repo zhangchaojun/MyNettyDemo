@@ -25,33 +25,37 @@ public class HelloWorldClient {
     public void start() {
         EventLoopGroup group = new NioEventLoopGroup();
 
-        Bootstrap bootstrap = new Bootstrap();
-        bootstrap.group(group)
-                .channel(NioSocketChannel.class)
-                .handler(new ChannelInitializer<SocketChannel>() {
-
-                    @Override
-                    protected void initChannel(SocketChannel ch) throws Exception {
-                        /*
-                         * 这个地方的 必须和服务端对应上。否则无法正常解码和编码
-                         */
-//                        ByteBuf delimiter = Unpooled.copiedBuffer("我".getBytes());
-//                        ch.pipeline().addLast("framer", new DelimiterBasedFrameDecoder(2048, delimiter));
-                        ch.pipeline().addLast("decoder", new StringDecoder());
-                        ch.pipeline().addLast("encoder", new StringEncoder());
-
-                        // 客户端的逻辑
-                        ch.pipeline().addLast("handler", new ClientHandler());
-                    }
-                });
-
         try {
+            Bootstrap bootstrap = new Bootstrap();
+            bootstrap.group(group)
+                    .channel(NioSocketChannel.class)
+                    .handler(new ChannelInitializer<SocketChannel>() {
+
+                        @Override
+                        protected void initChannel(SocketChannel ch) throws Exception {
+                            /*
+                             * 这个地方的 必须和服务端对应上。否则无法正常解码和编码
+                             */
+                            ByteBuf delimiter = Unpooled.copiedBuffer("8".getBytes());
+                            ch.pipeline().addLast("framer", new DelimiterBasedFrameDecoder(2048,false, delimiter));
+                            ch.pipeline().addLast("decoder", new StringDecoder());
+                            ch.pipeline().addLast("encoder", new StringEncoder());
+
+                            // 客户端的逻辑
+                            ch.pipeline().addLast("handler", new ClientHandler());
+                        }
+                    });
+
+
             ChannelFuture future = bootstrap.connect(address, port).sync();
+            System.out.println("client connected success!! ip=="+address+" port=="+port);
             future.channel().closeFuture().sync();
+            System.out.println("client closed success");
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             group.shutdownGracefully();
+            System.out.println("client shutdown gracefully!!");
         }
 
     }
