@@ -1,9 +1,12 @@
-package com.example.mynettydemo.newinstance.server;
+package com.example.mynettydemo.decodeinstance.server;
 
-import android.util.Log;
+import com.example.mynettydemo.utils.ByteTools;
 
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.util.ReferenceCountUtil;
 
 /**
  * @author zcj
@@ -11,10 +14,7 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
  */
 public class MyServerHandler1 extends ChannelInboundHandlerAdapter {
 
-
-    public MyServerHandler1() {
-        super();
-    }
+    private int count = 0;
 
     @Override
     public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
@@ -38,9 +38,17 @@ public class MyServerHandler1 extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        System.out.println("MyServerHandler1 channelRead: 内容是");
-        System.out.println((String) msg);
-        ctx.close();
+
+        System.out.println("MyServerHandler1 channelRead: 内容是: count == "+(++count));
+        ByteBuf byteBuf = (ByteBuf) msg;
+        byte[] bytes = new byte[byteBuf.readableBytes()];
+        byteBuf.readBytes(bytes);
+        System.out.println(ByteTools.byteArr2HexStr(bytes));
+//        System.out.println((String) msg);
+
+        ReferenceCountUtil.release(byteBuf);
+        System.out.println("refCount ==" + byteBuf.refCnt());
+        ctx.writeAndFlush(Unpooled.wrappedBuffer("我是服务器".getBytes()));
 
     }
 

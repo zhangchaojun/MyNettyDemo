@@ -27,10 +27,10 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
         String body = (String) msg;
         System.out.println("server receive order : " + body + ";the counter is: " + ++counter);
 
-        byte[] bytes = "我爸Gnst8".getBytes();
-
-        System.out.println("发出去的byte数组== "+Arrays.toString(bytes));
-        ctx.writeAndFlush(Unpooled.wrappedBuffer(bytes));
+//        byte[] bytes = "我爸Gnst8".getBytes();
+//
+//        ctx.writeAndFlush(Unpooled.wrappedBuffer(bytes));
+        ctx.close();
     }
 
     @Override

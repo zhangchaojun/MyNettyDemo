@@ -1,9 +1,10 @@
-package com.example.mynettydemo.newinstance.server;
+package com.example.mynettydemo.sequenceinstance.server;
 
-import android.util.Log;
-
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.util.CharsetUtil;
 
 /**
  * @author zcj
@@ -12,9 +13,6 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 public class MyServerHandler1 extends ChannelInboundHandlerAdapter {
 
 
-    public MyServerHandler1() {
-        super();
-    }
 
     @Override
     public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
@@ -38,9 +36,13 @@ public class MyServerHandler1 extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+
         System.out.println("MyServerHandler1 channelRead: 内容是");
-        System.out.println((String) msg);
-        ctx.close();
+        ByteBuf byteBuf = (ByteBuf)msg;
+        System.out.println(byteBuf.toString(CharsetUtil.UTF_8));
+
+        ctx.fireChannelRead(msg);
+        ctx.writeAndFlush(Unpooled.wrappedBuffer("我是服务器".getBytes()));
 
     }
 

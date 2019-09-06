@@ -1,6 +1,4 @@
-package com.example.mynettydemo.newinstance.server;
-
-import android.util.Log;
+package com.example.mynettydemo.sequenceinstance.client;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -9,58 +7,55 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
  * @author zcj
  * @date 2019/8/22
  */
-public class MyServerHandler1 extends ChannelInboundHandlerAdapter {
+public class MyClientHandler3 extends ChannelInboundHandlerAdapter {
 
 
-    public MyServerHandler1() {
-        super();
-    }
+
 
     @Override
     public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
-        System.out.println("MyServerHandler1 channelRegistered: ");
+        System.out.println("MyClientHandler3 channelRegistered: ");
     }
 
     @Override
     public void channelUnregistered(ChannelHandlerContext ctx) throws Exception {
-        System.out.println("MyServerHandler1 channelUnregistered: ");
+        System.out.println("MyClientHandler3 channelUnregistered: ");
     }
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        System.out.println("MyServerHandler1 channelActive: ");
+        System.out.println("MyClientHandler3 channelActive: ");
+//        ctx.writeAndFlush("nihao");
+//        ctx.close();
     }
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-        System.out.println("MyServerHandler1 channelInactive: ");
+        System.out.println("MyClientHandler3 channelInactive: ");
     }
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        System.out.println("MyServerHandler1 channelRead: 内容是");
-        System.out.println((String) msg);
-        ctx.close();
-
+        System.out.println("MyClientHandler3 channelRead: ");
     }
 
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
-        System.out.println("MyServerHandler1 channelReadComplete: ");
+        System.out.println("MyClientHandler3 channelReadComplete: ");
     }
 
     @Override
     public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
-        System.out.println("MyServerHandler1 userEventTriggered: ");
+        System.out.println("MyClientHandler3 userEventTriggered: ");
     }
 
     @Override
     public void channelWritabilityChanged(ChannelHandlerContext ctx) throws Exception {
-        System.out.println("MyServerHandler1 channelWritabilityChanged: ");
+        System.out.println("MyClientHandler3 channelWritabilityChanged: ");
     }
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-        System.out.println("MyServerHandler1 exceptionCaught: message== " + cause.getMessage());
+        System.out.println("MyClientHandler3 exceptionCaught: ");
     }
 }

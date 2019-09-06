@@ -34,7 +34,7 @@ public class HelloWordServer {
                         protected void initChannel(SocketChannel socketChannel) throws Exception {
                             ChannelPipeline pipeline = socketChannel.pipeline();
 
-                            ByteBuf delimiter = Unpooled.copiedBuffer("你".getBytes());
+                            ByteBuf delimiter = Unpooled.copiedBuffer("我".getBytes());
                             pipeline.addLast("framer", new DelimiterBasedFrameDecoder(2048, false, delimiter));
                             // 字符串解码 和 编码
                             pipeline.addLast("decoder", new StringDecoder());

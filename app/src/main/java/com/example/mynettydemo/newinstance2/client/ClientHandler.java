@@ -13,21 +13,21 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
 
     public ClientHandler() {
         req = ( "你1Unless required by applicable law or agreed to in writing, software\t我" +
-                "2distributed under the License is distributed on an \"AS IS\" BASIS,\t我" +
-                "3WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\t我" +
-                "4See the License for the specific language governing permissions and\t我" +
-                "5limitations under the License.This connector uses the BIO implementation that requires the JSSE\t我" +
-                "6style configuration. When using the APR/native implementation, the\t我" +
-                "7penSSL style configuration is required as described in the APR/native\t我" +
-                "8documentation.An Engine represents the entry point (within Catalina) that processes\t我" +
-                "9every request.  The Engine implementation for Tomcat stand alone\t我" +
-                "10analyzes the HTTP headers included with the request, and passes them\t我" +
-                "11on to the appropriate Host (virtual host)# Unless required by applicable law or agreed to in writing, software\t我" +
-                "12distributed under the License is distributed on an \"AS IS\" BASIS,\t我" +
-                "13WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\t我" +
-                "14See the License for the specific language governing permissions and\t我" +
-                "15limitations under the License.# For example, set the org.apache.catalina.util.LifecycleBase logger to log\t我" +
-                "16each component that extends LifecycleBase changing state:\t我" +
+                "你2distributed under the License is distributed on an \"AS IS\" BASIS,\t我" +
+                "你3WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\t我" +
+                "你4See the License for the specific language governing permissions and\t我" +
+                "你5limitations under the License.This connector uses the BIO implementation that requires the JSSE\t我" +
+                "你6style configuration. When using the APR/native implementation, the\t我" +
+                "你7penSSL style configuration is required as described in the APR/native\t我" +
+                "你8documentation.An Engine represents the entry point (within Catalina) that processes\t我" +
+                "你9every request.  The Engine implementation for Tomcat stand alone\t我" +
+                "你10analyzes the HTTP headers included with the request, and passes them\t我" +
+                "你11on to the appropriate Host (virtual host)# Unless required by applicable law or agreed to in writing, software\t我" +
+                "你12distributed under the License is distributed on an \"AS IS\" BASIS,\t我" +
+                "你13WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\t我" +
+                "你14See the License for the specific language governing permissions and\t我" +
+                "你15limitations under the License.# For example, set the org.apache.catalina.util.LifecycleBase logger to log\t我" +
+                "你16each component that extends LifecycleBase changing state:\t我" +
                 "你17org.apache.catalina.util.LifecycleBase.level = FINE\t我"
         ).getBytes();
 

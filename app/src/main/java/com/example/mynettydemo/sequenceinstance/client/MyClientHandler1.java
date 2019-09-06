@@ -1,4 +1,4 @@
-package com.example.mynettydemo.newinstance.client;
+package com.example.mynettydemo.sequenceinstance.client;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -6,6 +6,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.timeout.IdleState;
 import io.netty.handler.timeout.IdleStateEvent;
+import io.netty.util.CharsetUtil;
 
 /**
  * @author zcj
@@ -14,9 +15,7 @@ import io.netty.handler.timeout.IdleStateEvent;
 public class MyClientHandler1 extends ChannelInboundHandlerAdapter {
 
 
-    public MyClientHandler1() {
-        super();
-    }
+
 
     @Override
     public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
@@ -30,9 +29,9 @@ public class MyClientHandler1 extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        System.out.println(Thread.currentThread().getName()+"MyClientHandler1 channelActive: ");
+        System.out.println("MyClientHandler1 channelActive: ");
         ByteBuf byteBuf = Unpooled.wrappedBuffer("hello".getBytes());
-        ctx.writeAndFlush(byteBuf);
+        ctx.channel().writeAndFlush(byteBuf);
     }
 
     @Override
@@ -42,7 +41,9 @@ public class MyClientHandler1 extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        System.out.println("MyClientHandler1 channelRead: ");
+        System.out.println("MyClientHandler1 channelRead: 内容是：");
+        ByteBuf byteBuf = (ByteBuf)msg;
+        System.out.println(byteBuf.toString(CharsetUtil.UTF_8));
     }
 
     @Override
@@ -52,15 +53,8 @@ public class MyClientHandler1 extends ChannelInboundHandlerAdapter {
 
     @Override
     public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
-        System.out.println(Thread.currentThread().getName()+"MyClientHandler1 userEventTriggered: " + evt.toString());
-        if (evt instanceof IdleStateEvent) {
-            IdleStateEvent idleStateEvent = (IdleStateEvent) evt;
-            IdleState state = idleStateEvent.state();
-            if (state == IdleState.READER_IDLE) {
-                System.out.println(Thread.currentThread().getName()+"读超时");
-                ctx.close();
-            }
-        }
+        System.out.println("MyClientHandler1 userEventTriggered: " + evt.toString());
+
     }
 
     @Override

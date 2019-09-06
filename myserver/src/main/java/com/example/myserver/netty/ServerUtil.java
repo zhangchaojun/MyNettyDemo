@@ -9,6 +9,7 @@ import com.example.myserver.handler.ServerInHandler3;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelPipeline;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
@@ -44,10 +45,11 @@ public class ServerUtil {
                         .childHandler(new ChannelInitializer<SocketChannel>() {
                             @Override
                             protected void initChannel(SocketChannel ch) throws Exception {
+                                ChannelPipeline pipeline = ch.pipeline();
 
-                                ch.pipeline().addLast("handler1", new ServerInHandler1());
-                                ch.pipeline().addLast("handler2", new ServerInHandler2());
-                                ch.pipeline().addLast("handler3", new ServerInHandler3());
+                                pipeline.addLast("handler1", new ServerInHandler1());
+                                pipeline.addLast("handler2", new ServerInHandler2());
+                                pipeline.addLast("handler3", new ServerInHandler3());
                             }
                         });
 
@@ -61,7 +63,7 @@ public class ServerUtil {
             } finally {
                 parentGroup.shutdownGracefully();
                 childGroup.shutdownGracefully();
-
+                Log.e(TAG, "shutdownGracefully");
             }
 
         }

@@ -6,4 +6,9 @@
     第二个参数：是否stripDelimiter，分段接受的时候是否把分割符去掉（默认去掉）
     第三个参数：就是分割符了，需要转成ByteBuf
 
-2、
+2、netty 的channelHandler执行顺序：
+    都是channelInboundHandler,都是addLast,执行顺序是从上到下的顺序，通过fireChannelRead可以向下一个handler传递。
+    channelOutboundHandler不懂，只知道向外输出时，如果用了ctx.channel().writeAndFlush();则会从管道底部向上传递。
+    如果直接ctx.writeAndFlush(),则从管道当前位置向上传递。
+
+3、
